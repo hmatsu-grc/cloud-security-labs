@@ -132,10 +132,15 @@ What IP CIDR range did the malicious security group allow for inbound access?
 
 ### Analysis
 
+I filtered the CloudTrail logs for `AuthorizeSecurityGroupIngress` events. The ingress rule associated with the compromised activity allowed traffic from the CIDR range `31.187.69.0/24`.
+
 ### Evidence
+
+![Malicious security group ingress rule](images/05-security-group-ingress.png)
 
 ### Answer
 
+`31.187.69.0/24`
 
 ## 6. Determine the Exposed Port
 
@@ -144,10 +149,15 @@ What port was allowed for inbound access?
 
 ### Analysis
 
+I filtered the CloudTrail logs for `AuthorizeSecurityGroupIngress` events. The ingress rule associated with the compromised activity allowed traffic from the CIDR range `31.187.69.0/24`.
+
 ### Evidence
+
+![Malicious security group ingress rule](images/05-security-group-ingress.png)
 
 ### Answer
 
+`22`
 
 ## 7. Determine the Allowed Protocol
 
@@ -156,10 +166,15 @@ What protocol was allowed for inbound access?
 
 ### Analysis
 
+I filtered the CloudTrail logs for `AuthorizeSecurityGroupIngress` events. The ingress rule associated with the compromised activity allowed traffic from the CIDR range `31.187.69.0/24`.
+
 ### Evidence
+
+![Malicious security group ingress rule](images/05-security-group-ingress.png)
 
 ### Answer
 
+`tcp`
 
 ## 8. Identify the Malicious IAM Identity
 
