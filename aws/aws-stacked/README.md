@@ -30,21 +30,124 @@ find . -type f -exec gunzip {} \;
 
 ## Investigation Objectives
 
+The investigation aims to identify the compromised AWS identity, determine how malicious resources were deployed, analyze the resources created, review the network exposure introduced by the attacker, and identify the source of the compromise.
+
 ## Evidence Sources
+
+- AWS CloudTrail logs
+- IAM activity
+- CloudFormation events
+- EC2 activity
+- Security group configuration
+- Source IP information
 
 ## 1. Identify the Compromised Identity
 
-## 2. Establish Authentication Context
+### Question
+What is the ARN of the compromised identity?
 
-## 3. Trace CloudFormation Activity
+### Analysis
 
-## 4. Identify Malicious Compute Resources
+### Evidence
 
-## 5. Analyze Security Group Changes
+### Answer
 
-## 6. Identify Malicious IAM Resources
 
-## 7. Determine the Attack Source
+## 2. Identify the Deployment Service
+
+### Question
+What AWS service was used to deploy malicious resources into the environment?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 3. Identify Malicious Compute Resources
+
+### Question
+How many malicious compute resources were deployed?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 4. Determine the Instance Type
+
+### Question
+What is the instance type observed for these resources?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 5. Analyze the Malicious Security Group
+
+### Question
+What IP CIDR range did the malicious security group allow for inbound access?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 6. Determine the Exposed Port
+
+### Question
+What port was allowed for inbound access?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 7. Determine the Allowed Protocol
+
+### Question
+What protocol was allowed for inbound access?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 8. Identify the Malicious IAM Identity
+
+### Question
+What is the user name given to the malicious identity that was deployed?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 9. Determine the Attack Source
+
+### Question
+What IP address did the attack originate from?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
 
 ## Investigation Timeline
 
