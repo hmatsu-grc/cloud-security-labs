@@ -216,10 +216,17 @@ How did the attacker remove the protection on this resource?
 
 ### Analysis
 
+I reviewed the S3 activity associated with the compromised `s3user` identity. After checking the bucket's versioning state, the attacker issued a `PutBucketVersioning` API call against the `webrew-dev-backup` bucket.
+
+This action modified the bucket's versioning configuration and removed the protection that had been in place.
+
 ### Evidence
+
+![PutBucketVersioning call against the affected S3 bucket](images/10-remove-bucket-protection.png)
 
 ### Answer
 
+`PutBucketVersioning`
 
 ## 10. Identify Exfiltrated Data
 
