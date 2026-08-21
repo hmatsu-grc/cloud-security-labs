@@ -99,10 +99,17 @@ What was the first successful reconnaissance API call?
 
 ### Analysis
 
+I reviewed the reconnaissance activity associated with the compromised `s3user` identity and compared each event's result.
+
+The initial `ListUsers` request returned `AccessDenied`. The following `ListBuckets` request completed successfully, making it the first successful reconnaissance API call.
+
 ### Evidence
+
+![First successful reconnaissance API call](images/03-first-successful-recon.png)
 
 ### Answer
 
+`ListBuckets`
 
 ## 4. Identify the Persistence Technique
 
