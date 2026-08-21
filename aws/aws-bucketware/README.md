@@ -236,10 +236,15 @@ What file did the attacker exfiltrate?
 
 ### Analysis
 
+I reviewed S3 object access activity associated with the compromised `s3user` identity. The `GetObject` event shows that the attacker successfully retrieved the file `highprofilecoffeeorders.csv` from the `webrew-dev-backup` bucket.
+
 ### Evidence
+
+![Exfiltrated file identified in S3 activity](images/11-exfiltrated-file.png)
 
 ### Answer
 
+`highprofilecoffeeorders.csv`
 
 ## 11. Identify the Ransom Note
 
