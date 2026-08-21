@@ -158,10 +158,15 @@ Were the persistence attempts successful?
 
 ### Analysis
 
+All three `CreateUser` attempts returned `AccessDenied`. The compromised `s3user` identity did not have permission to create additional IAM users, so the attacker was unable to establish persistence using this method.
+
 ### Evidence
+
+See the `CreateUser` events documented above, each of which returned `AccessDenied`.
 
 ### Answer
 
+`No`
 
 ## 7. Identify the Affected S3 Bucket
 
