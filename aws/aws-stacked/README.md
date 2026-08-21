@@ -202,17 +202,66 @@ What IP address did the attack originate from?
 
 ### Analysis
 
+I reviewed CloudTrail activity associated with the compromised `cloud-ops-intern` identity and compared the source IP addresses across the suspicious events.
+
+The external IP address `31.187.69.154` repeatedly appeared during the malicious CloudFormation activity, including `CreateStack`, `ListStacks`, and `DescribeStackEvents`.
+
 ### Evidence
+
+![Source IP associated with the compromised identity](images/07-attack-source-ip.png)
 
 ### Answer
 
+`31.187.69.154`
 
 ## Investigation Timeline
 
+| Time (UTC) | Event | Details |
+|---|---|---|
+| 2023-06-01 01:09:19 | `GetTemplateSummary` | The compromised `cloud-ops-intern` identity queried CloudFormation from `31.187.69.154`. |
+| 2023-06-01 01:11:05 | `CreateStack` | A CloudFormation stack was created from the suspicious source IP `31.187.69.154`. |
+| 2023-06-01 01:11:08 | `CreateUser` | CloudFormation created the IAM user `devops-admin`. |
+| 2023-06-01 01:11:09 | `CreateSecurityGroup` | A new EC2 security group was created. |
+| 2023-06-01 01:11:14 | `AuthorizeSecurityGroupIngress` | The security group allowed TCP port `22` from `31.187.69.0/24`. |
+| 2023-06-01 01:11:18–01:11:19 | `RunInstances` | Two `c5.large` EC2 instances were successfully deployed. |
+
 ## Key Findings
+
+- The compromised identity was `cloud-ops-intern`.
+- The malicious activity originated from `31.187.69.154`.
+- AWS CloudFormation was used to deploy malicious resources.
+- Two `c5.large` EC2 instances were successfully created.
+- A new IAM identity named `devops-admin` was successfully deployed.
+- A malicious security group permitted TCP port `22` from `31.187.69.0/24`.
+- The attack used the compromised IAM identity to provision both compute and identity resources within the AWS environment.
 
 ## Security Control Analysis
 
+The compromised `cloud-ops-intern` identity was able to invoke CloudFormation and provision IAM, EC2, and networking resources. This indicates that the account had permissions capable of making significant changes to the AWS environment.
+
+CloudTrail evidence also showed `mfaAuthenticated` set to `false` for the compromised session. Requiring MFA would provide an additional authentication control against credential compromise.
+
+The permissions available to the intern account should also be reviewed against the principle of least privilege. An intern account generally should not require unrestricted access to create IAM users, deploy CloudFormation stacks, launch EC2 instances, or modify security groups unless those permissions are explicitly required for the role.
+
+The security group created during the attack exposed SSH over TCP port `22` to the CIDR range `31.187.69.0/24`, introducing an externally reachable management path to the malicious compute resources.
+
 ## Remediation Recommendations
 
+- Revoke and rotate credentials associated with the compromised `cloud-ops-intern` identity.
+- Require MFA for IAM users with console or privileged access.
+- Review and reduce the permissions assigned to the compromised identity according to least privilege.
+- Remove the malicious `devops-admin` IAM identity.
+- Terminate unauthorized EC2 instances created during the incident.
+- Remove the malicious security group and associated ingress rules.
+- Review the CloudFormation stack and delete unauthorized resources created by it.
+- Review CloudTrail activity for additional actions performed by the compromised identity.
+- Configure monitoring and alerting for high-risk activity such as `CreateUser`, `CreateStack`, `RunInstances`, and security group modifications.
+- Consider restricting infrastructure deployment through approved IAM roles and controlled CloudFormation workflows.
+
 ## Analyst Conclusion
+
+CloudTrail analysis identified `cloud-ops-intern` as the compromised AWS identity. The attacker used the account from the external IP address `31.187.69.154` and leveraged AWS CloudFormation to deploy unauthorized resources.
+
+The malicious deployment created the `devops-admin` IAM identity, an EC2 security group allowing SSH access from `31.187.69.0/24`, and two `c5.large` EC2 instances.
+
+The incident demonstrates how compromised cloud credentials combined with excessive permissions can allow an attacker to rapidly provision identity, network, and compute resources. Stronger authentication, least-privilege IAM permissions, and monitoring of high-risk AWS API activity would reduce the likelihood and impact of similar activity.
