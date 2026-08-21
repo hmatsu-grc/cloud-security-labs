@@ -132,10 +132,23 @@ In order of occurrence, which IAM users were involved in this persistence attemp
 
 ### Analysis
 
+I reviewed the full CloudTrail records for the three `CreateUser` attempts associated with the compromised `s3user` identity.
+
+Although `requestParameters` was `null` for the failed requests, the attempted IAM usernames were recorded in the `errorMessage` field. In chronological order, the attacker attempted to create the following users:
+
+1. `rooter`
+2. `adm1n`
+3. `dev0ps_user`
+
 ### Evidence
+
+![Persistence attempt targeting rooter](images/05-persistence-rooter.png)
+![Persistence attempt targeting adm1n](images/06-persistence-adm1n.png)
+![Persistence attempt targeting dev0ps_user](images/07-persistence-dev0ps-user.png)
 
 ### Answer
 
+`rooter`, `adm1n`, `dev0ps_user`
 
 ## 6. Determine Whether Persistence Succeeded
 
