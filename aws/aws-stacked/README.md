@@ -16,13 +16,13 @@ The challenge provides AWS CloudTrail logs from the affected environment.
 sudo su
 ```
 
-2. Navigate to the CloudTrail log directory:
+2. Navigate into the CloudTrail log directory:
 
 ```bash
 cd /root/Desktop/ChallengeFile/AWSLogs/670756667180/CloudTrail/us-east-1/2023/06/01
 ```
 
-3. Decompress the CloudTrail log files:
+3. Unzip the CloudTrail log files:
 
 ```bash
 find . -type f -exec gunzip {} \;
