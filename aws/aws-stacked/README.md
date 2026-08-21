@@ -70,9 +70,17 @@ What AWS service was used to deploy malicious resources into the environment?
 
 ### Analysis
 
+I filtered CloudTrail events associated with the compromised `cloud-ops-intern` identity for activity originating from `cloudformation.amazonaws.com`.
+
+The logs showed a `CreateStack` event from the suspicious source IP address `31.187.69.154`, confirming that AWS CloudFormation was used to deploy the malicious resources.
+
 ### Evidence
 
+![CloudFormation activity associated with the compromised identity](images/03-cloudformation-activity.png)
+
 ### Answer
+
+`AWS CloudFormation`
 
 
 ## 3. Identify Malicious Compute Resources
