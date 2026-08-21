@@ -183,10 +183,17 @@ What is the user name given to the malicious identity that was deployed?
 
 ### Analysis
 
+I reviewed the `CreateUser` CloudTrail event generated during the malicious CloudFormation activity.
+
+The event's `requestParameters` and `responseElements` fields show that a new IAM user named `devops-admin` was created. The `errorCode` value was `null`, indicating that the user creation succeeded.
+
 ### Evidence
+
+![Malicious IAM user created during the compromise](images/06-malicious-iam-user.png)
 
 ### Answer
 
+`devops-admin`
 
 ## 9. Determine the Attack Source
 
