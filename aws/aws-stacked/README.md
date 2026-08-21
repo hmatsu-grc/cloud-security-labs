@@ -57,7 +57,6 @@ This activity identified `cloud-ops-intern` as the compromised identity.
 ### Evidence
 
 ![IAM identities identified in CloudTrail logs](images/01-iam-identities.png)
-
 ![Suspicious resource creation associated with the compromised identity](images/02-compromised-identity-activity.png)
 
 ### Answer
