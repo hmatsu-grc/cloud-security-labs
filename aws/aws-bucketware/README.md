@@ -57,10 +57,19 @@ What is the compromised identity?
 
 ### Analysis
 
+I reviewed CloudTrail activity associated with the observed IAM identities. The `s3user` account generated a sequence of suspicious reconnaissance, IAM, and S3 activity from the external source IP address `159.48.53.157`.
+
+The activity included resource enumeration, attempts to create additional IAM users, S3 object access, bucket versioning changes, object deletion, and object creation.
+
+This activity identified `s3user` as the compromised identity.
+
 ### Evidence
+
+![Suspicious CloudTrail activity associated with s3user](images/01-compromised-identity-activity.png)
 
 ### Answer
 
+`s3user`
 
 ## 2. Analyze Reconnaissance Activity
 
