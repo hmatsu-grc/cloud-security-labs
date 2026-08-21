@@ -48,10 +48,19 @@ What is the ARN of the compromised identity?
 
 ### Analysis
 
+I reviewed the CloudTrail logs to identify IAM users present in the environment. Two identities were observed: `iamadmin` and `cloud-ops-intern`.
+
+I then examined activity associated with `cloud-ops-intern`. The account was tied to suspicious resource creation activity, including `CreateUser`, `CreateSecurityGroup`, `CreateStack`, `AuthorizeSecurityGroupIngress`, and `RunInstances`.
+
+This activity identified `cloud-ops-intern` as the compromised identity.
+
 ### Evidence
+
+
 
 ### Answer
 
+`arn:aws:iam::670756667180:user/cloud-ops-intern`
 
 ## 2. Identify the Deployment Service
 
