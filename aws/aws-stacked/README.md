@@ -223,7 +223,8 @@ The external IP address `31.187.69.154` repeatedly appeared during the malicious
 | 2023-06-01 01:11:08 | `CreateUser` | CloudFormation created the IAM user `devops-admin`. |
 | 2023-06-01 01:11:09 | `CreateSecurityGroup` | A new EC2 security group was created. |
 | 2023-06-01 01:11:14 | `AuthorizeSecurityGroupIngress` | The security group allowed TCP port `22` from `31.187.69.0/24`. |
-| 2023-06-01 01:11:18–01:11:19 | `RunInstances` | Two `c5.large` EC2 instances were successfully deployed. |
+| 2023-06-01 01:11:18 | `RunInstances` | EC2 instance `i-0df2ed2942dfdd11b` was successfully deployed as `c5.large`. |
+| 2023-06-01 01:11:19 | `RunInstances` | EC2 instance `i-0126a710605884935` was successfully deployed as `c5.large`. |
 
 ## Key Findings
 
