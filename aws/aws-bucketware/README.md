@@ -1,26 +1,196 @@
-# AWS Bucketware — CloudTrail Incident Investigation
+# AWS Bucketware — Credential Compromise Investigation
 
 ## Scenario Summary
 
+An attacker used compromised AWS credentials to establish persistence within a cloud environment and prepare infrastructure for large-scale phishing campaigns. The objective is to reconstruct the attacker’s activity, identify persistence attempts, analyze changes to AWS resources, and determine the impact of the compromise.
+
+The challenge is inspired by a real-world cloud ransomware scenario.
+
+## Lab Setup
+
+The challenge provides AWS CloudTrail logs from the affected environment.
+
+### Lab Instructions
+
+1. Become root:
+
+```bash
+sudo su
+```
+
+2. Extract the AWS log archive:
+
+```bash
+unzip /root/Desktop/ChallengeFile/AWSLogs.zip -d /root/Desktop/ChallengeFile/
+```
+
+3. Navigate to the CloudTrail log directory:
+
+```bash
+cd /root/Desktop/ChallengeFile/AWSLogs/670756667180/CloudTrail/us-east-1/2023/04/25/
+```
+
+4. Decompress the CloudTrail log files:
+
+```bash
+find . -type f -exec gunzip {} \;
+```
+
 ## Investigation Objectives
+
+The investigation aims to identify the compromised AWS identity, reconstruct attacker reconnaissance activity, analyze attempted IAM persistence, identify affected S3 resources, determine what protections were modified, and assess data access and ransom activity.
 
 ## Evidence Sources
 
+- AWS CloudTrail logs
+- IAM API activity
+- S3 API activity
+- Request parameters
+- Response and error codes
+- Object access activity
+
 ## 1. Identify the Compromised Identity
+
+### Question
+
+What is the compromised identity?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
 
 ## 2. Analyze Reconnaissance Activity
 
-## 3. Identify IAM Persistence Attempts
+### Question
 
-## 4. Determine Whether Persistence Succeeded
+In order of occurrence, what were the last three reconnaissance API calls the attacker performed using the compromised credentials?
 
-## 5. Identify the Affected S3 Bucket
+### Analysis
 
-## 6. Analyze S3 Protection Changes
+### Evidence
 
-## 7. Identify Data Access and Exfiltration
+### Answer
 
-## 8. Analyze Data Deletion and Ransom Activity
+
+## 3. Identify the First Successful Reconnaissance Call
+
+### Question
+
+What was the first successful reconnaissance API call?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 4. Identify the Persistence Technique
+
+### Question
+
+How did the attacker attempt to maintain persistence within the environment?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 5. Identify IAM Users Involved in the Persistence Attempt
+
+### Question
+
+In order of occurrence, which IAM users were involved in this persistence attempt?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 6. Determine Whether Persistence Succeeded
+
+### Question
+
+Were the persistence attempts successful?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 7. Identify the Affected S3 Bucket
+
+### Question
+
+Which S3 bucket was affected in this attack?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 8. Analyze S3 Protection Discovery
+
+### Question
+
+How did the attacker check for protection on this resource?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 9. Analyze S3 Protection Modification
+
+### Question
+
+How did the attacker remove the protection on this resource?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 10. Identify Exfiltrated Data
+
+### Question
+
+What file did the attacker exfiltrate?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
+
+## 11. Identify the Ransom Note
+
+### Question
+
+What was the name of the ransom note?
+
+### Analysis
+
+### Evidence
+
+### Answer
+
 
 ## Investigation Timeline
 
