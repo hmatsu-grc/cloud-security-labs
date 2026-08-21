@@ -116,6 +116,11 @@ What is the instance type observed for these resources?
 ### Analysis
 
 The two successful `RunInstances` events both showed the instance type as `c5.large`.
+
+### Evidence
+
+![EC2 instances and instance type observed during the compromise](images/04-malicious-compute-resources.png)
+
 ### Answer
 
 `c5.large`
