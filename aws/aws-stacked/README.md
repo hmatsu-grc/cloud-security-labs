@@ -2,6 +2,32 @@
 
 ## Scenario Summary
 
+An unsuspecting cloud intern at MechZone clicks on an AWS phishing link, inadvertently deploying malicious resources into the company's cloud environment. The objective is to investigate the source of the compromise and identify the malicious resources staged by the attacker.
+
+## Lab Setup
+
+The challenge provides AWS CloudTrail logs from the affected environment.
+
+### Lab Instructions
+
+1. Become root:
+
+```bash
+sudo su
+```
+
+2. Navigate to the CloudTrail log directory:
+
+```bash
+cd /root/Desktop/ChallengeFile/AWSLogs/670756667180/CloudTrail/us-east-1/2023/06/01
+```
+
+3. Decompress the CloudTrail log files:
+
+```bash
+find . -type f -exec gunzip {} \;
+```
+
 ## Investigation Objectives
 
 ## Evidence Sources
