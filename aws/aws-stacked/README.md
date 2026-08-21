@@ -90,27 +90,32 @@ How many malicious compute resources were deployed?
 
 ### Analysis
 
+I filtered the CloudTrail logs for `RunInstances` events associated with the compromised activity.
+
+Three `RunInstances` events were observed, but only two returned EC2 instance IDs, indicating that two compute resources were successfully deployed:
+
+- `i-0126a710605884935`
+- `i-0df2ed2942dfdd11b`
+
+The remaining `RunInstances` event did not return an instance ID and therefore did not result in a deployed compute resource.
+
 ### Evidence
+
+![EC2 instances deployed during the compromise](images/04-malicious-compute-resources.png)
 
 ### Answer
 
+`2`
 
 ## 4. Determine the Instance Type
 
 ### Question
-What is the instance type observed for these resources?
 
-### Question
 What is the instance type observed for these resources?
 
 ### Analysis
 
 The two successful `RunInstances` events both showed the instance type as `c5.large`.
-
-### Evidence
-
-![EC2 instances and instance type observed during the compromise](images/04-malicious-compute-resources.png)
-
 ### Answer
 
 `c5.large`
