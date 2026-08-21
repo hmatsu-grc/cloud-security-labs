@@ -79,10 +79,17 @@ In order of occurrence, what were the last three reconnaissance API calls the at
 
 ### Analysis
 
+I reviewed the CloudTrail events associated with the compromised `s3user` identity and ordered the activity by timestamp.
+
+The final three reconnaissance API calls were `GetBucketVersioning`, `ListObjects`, and `GetObject`. These actions allowed the attacker to inspect the S3 bucket's versioning state, enumerate stored objects, and retrieve an object.
+
 ### Evidence
+
+![Reconnaissance activity performed by the compromised identity](images/02-reconnaissance-activity.png)
 
 ### Answer
 
+`GetBucketVersioning`, `ListObjects`, `GetObject`
 
 ## 3. Identify the First Successful Reconnaissance Call
 
