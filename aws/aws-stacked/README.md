@@ -80,7 +80,7 @@ The logs showed a `CreateStack` event from the suspicious source IP address `31.
 
 ### Answer
 
-`AWS CloudFormation`
+`CloudFormation`
 
 
 ## 3. Identify Malicious Compute Resources
