@@ -254,19 +254,79 @@ What was the name of the ransom note?
 
 ### Analysis
 
+I reviewed the S3 object activity associated with the compromised `s3user` identity. A successful `PutObject` event shows that the attacker uploaded a file named `ransomenote.txt` to the `webrew-dev-backup` bucket.
+
 ### Evidence
+
+![Ransom note uploaded to the affected S3 bucket](images/12-ransom-note.png)
 
 ### Answer
 
+`ransomenote.txt`
 
 ## Investigation Timeline
 
+| Time (UTC) | Event | Details |
+|---|---|---|
+| 2023-04-25 15:51:31 | `ListUsers` | The compromised `s3user` identity attempted IAM enumeration and received `AccessDenied`. |
+| 2023-04-25 15:52:33 | `ListBuckets` | The attacker successfully enumerated S3 buckets. |
+| 2023-04-25 15:59:56 | `CreateUser` | The attacker attempted to create the IAM user `rooter`; the request was denied. |
+| 2023-04-25 16:00:58 | `CreateUser` | The attacker attempted to create the IAM user `adm1n`; the request was denied. |
+| 2023-04-25 16:02:00 | `CreateUser` | The attacker attempted to create the IAM user `dev0ps_user`; the request was denied. |
+| 2023-04-25 16:03:02 | `GetBucketVersioning` | The attacker checked the versioning state of `webrew-dev-backup`. |
+| 2023-04-25 16:04:06 | `PutBucketVersioning` | The attacker modified the bucket's versioning configuration. |
+| 2023-04-25 16:05:08 | `ListObjects` | Objects in `webrew-dev-backup` were enumerated. |
+| 2023-04-25 16:05:09 | `GetObject` | `highprofilecoffeeorders.csv` was successfully retrieved. |
+| 2023-04-25 16:05:11 | `DeleteObject` | `highprofilecoffeeorders.csv` was deleted from the bucket. |
+| 2023-04-25 16:19:15 | `PutObject` | `ransomenote.txt` was uploaded to the affected bucket. |
+
 ## Key Findings
+
+- The compromised AWS identity was `s3user`.
+- Suspicious activity originated from `159.48.53.157`.
+- The attacker performed IAM and S3 reconnaissance before modifying resources.
+- `ListBuckets` was the first successful reconnaissance API call.
+- The attacker attempted to establish persistence by creating three IAM users: `rooter`, `adm1n`, and `dev0ps_user`.
+- All three IAM persistence attempts were blocked with `AccessDenied`.
+- The affected S3 bucket was `webrew-dev-backup`.
+- The attacker checked the bucket's versioning state with `GetBucketVersioning` and modified it using `PutBucketVersioning`.
+- `highprofilecoffeeorders.csv` was retrieved and subsequently deleted.
+- A ransom note named `ransomenote.txt` was uploaded to the bucket.
 
 ## Identity and Access Analysis
 
+The compromised `s3user` identity was able to enumerate S3 resources and perform destructive actions against the `webrew-dev-backup` bucket.
+
+The attacker also attempted to create additional IAM users to establish alternate access paths. These attempts were unsuccessful because the identity did not have permission to perform `iam:CreateUser`.
+
+This demonstrates that the permissions assigned to `s3user` limited some attacker activity, but still allowed access to sensitive S3 operations such as object retrieval, deletion, and bucket versioning modification.
+
 ## Security Control Analysis
+
+The `AccessDenied` responses for the three `CreateUser` attempts demonstrate that IAM authorization controls successfully prevented the attacker from establishing persistence through additional IAM identities.
+
+However, the compromised account retained sufficient permissions to enumerate S3 resources, retrieve and delete objects, and modify bucket versioning. These permissions increased the impact of the credential compromise.
+
+S3 permissions associated with the affected identity should be reviewed against least-privilege requirements. Sensitive actions such as `DeleteObject` and `PutBucketVersioning` should only be available where operationally necessary.
+
+Monitoring high-risk CloudTrail events could also provide earlier detection of suspicious activity, particularly repeated IAM enumeration, failed `CreateUser` attempts, bucket versioning changes, and unusual object access.
 
 ## Remediation Recommendations
 
+- Revoke and rotate credentials associated with the compromised `s3user` identity.
+- Review the IAM policies assigned to `s3user` and reduce permissions according to least privilege.
+- Restore the intended versioning configuration on `webrew-dev-backup`.
+- Review the affected bucket for unauthorized objects and remove `ransomenote.txt`.
+- Assess whether deleted data can be recovered through existing S3 protections or backups.
+- Investigate CloudTrail activity from `159.48.53.157` for additional malicious actions.
+- Configure alerts for repeated IAM enumeration and failed IAM privilege or persistence attempts.
+- Monitor high-risk S3 actions such as `PutBucketVersioning`, `DeleteObject`, and unusual `GetObject` activity.
+- Require strong authentication controls for identities with access to sensitive cloud resources.
+
 ## Analyst Conclusion
+
+CloudTrail analysis identified `s3user` as the compromised AWS identity. The attacker used the account from the external IP address `159.48.53.157` to enumerate AWS resources, attempt IAM persistence, and interact with the `webrew-dev-backup` S3 bucket.
+
+The attacker attempted to create three additional IAM users, but each request was blocked by IAM authorization controls. Despite those failed persistence attempts, the compromised identity retained sufficient S3 permissions to inspect and modify bucket protections, retrieve `highprofilecoffeeorders.csv`, delete the object, and upload `ransomenote.txt`.
+
+The incident demonstrates how a compromised cloud identity can still cause significant data impact even when some privilege-escalation or persistence actions are denied. Least-privilege IAM permissions, stronger credential protections, and monitoring of high-risk CloudTrail activity would reduce the impact of similar compromises.
