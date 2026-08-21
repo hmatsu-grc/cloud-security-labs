@@ -11,10 +11,11 @@ Hands-on cloud security labs focused on AWS IAM, CloudTrail, compromised credent
 ## Repository Structure
 
 ```text
-aws/
-├── aws-stacked/
-│   ├── README.md
-│   └── images/
-└── aws-bucketware/
+cloud-security-labs/
+├── README.md
+└── aws/
     ├── README.md
-    └── images/
+    ├── aws-bucketware/
+    │   └── README.md
+    └── aws-stacked/
+        └── README.md
