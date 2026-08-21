@@ -13,7 +13,7 @@ This folder contains AWS cloud security labs focused on identity and access mana
 - Security group analysis
 - S3 bucket security
 - S3 versioning changes
-- Object access, deletion, and exfiltration
+- S3 object access, deletion, and exfiltration
 - Cloud incident timeline reconstruction
 - Least-privilege analysis
 - Security control analysis
