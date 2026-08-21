@@ -176,10 +176,17 @@ Which S3 bucket was affected in this attack?
 
 ### Analysis
 
+I filtered CloudTrail events associated with the compromised `s3user` identity for S3 activity.
+
+The bucket `webrew-dev-backup` appeared repeatedly in the attack sequence, including versioning checks, object enumeration, object retrieval, deletion, and object creation.
+
 ### Evidence
+
+![Affected S3 bucket identified in CloudTrail](images/08-affected-s3-bucket.png)
 
 ### Answer
 
+`webrew-dev-backup`
 
 ## 8. Analyze S3 Protection Discovery
 
@@ -189,10 +196,17 @@ How did the attacker check for protection on this resource?
 
 ### Analysis
 
+I reviewed the S3 activity associated with the compromised `s3user` identity. The attacker issued the `GetBucketVersioning` API call against the `webrew-dev-backup` bucket.
+
+This API call retrieves the bucket's versioning state, allowing the attacker to determine whether versioning protection was enabled.
+
 ### Evidence
+
+![GetBucketVersioning call against the affected S3 bucket](images/09-check-bucket-versioning.png)
 
 ### Answer
 
+`GetBucketVersioning`
 
 ## 9. Analyze S3 Protection Modification
 
