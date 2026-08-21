@@ -100,12 +100,20 @@ How many malicious compute resources were deployed?
 ### Question
 What is the instance type observed for these resources?
 
+### Question
+What is the instance type observed for these resources?
+
 ### Analysis
+
+The two successful `RunInstances` events both showed the instance type as `c5.large`.
 
 ### Evidence
 
+![EC2 instances and instance type observed during the compromise](images/04-malicious-compute-resources.png)
+
 ### Answer
 
+`c5.large`
 
 ## 5. Analyze the Malicious Security Group
 
