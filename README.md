@@ -6,8 +6,8 @@ Hands-on cloud security labs focused on AWS IAM, CloudTrail, compromised credent
 
 ### AWS
 
-- [AWS Stacked — CloudTrail Incident Investigation](aws/aws-stacked/)
 - [AWS Bucketware — Credential Compromise Investigation](aws/aws-bucketware/)
+- [AWS Stacked — CloudTrail Incident Investigation](aws/aws-stacked/)
 
 ## Repository Structure
 
