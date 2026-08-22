@@ -17,6 +17,8 @@ cloud-security-labs/
 └── aws/
     ├── README.md
     ├── aws-bucketware/
+    │   ├── images/
     │   └── README.md
     └── aws-stacked/
+        ├── images/
         └── README.md
